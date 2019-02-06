@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const Product = require('../../models/product');
 const Customer = require('../../models/customer');
 const Order = require('../../models/order');
-
+const mongoose = require('mongoose');
 
 const customer = async custId => {
     try{
@@ -59,39 +59,47 @@ module.exports = {
     orders: async () => {
         try{
       const orders = await Order.find()
-         
             return orders.map(order =>{
                 console.log(order);
                 return { 
                     ...order._doc,
-                    password:null,
-                    orderCreator : customer.bind(this, order._doc.orderCreator)
-                };
+                    createdAt: new Date(order._doc.createdAt).toDateString(),
+                    updatedAt: new Date(order._doc.updatedAt).toDateString()
+                 };
             });
          
          } catch(err){
             throw err;
         };
     },
+
+
     createOrder: async (args) => {
+        const items = await Product.find({'_id':{$in: [
+            mongoose.Types.ObjectId('5c59643c4b63df1bbc541815'),
+            mongoose.Types.ObjectId('5c5966b4bf83c535c0a2b1a7'),
+            mongoose.Types.ObjectId('5c5ace376d2ded2658f9fccc')
+        ]}}, function(err,docs){
+            console.log(docs);
+        });
+
         const order = await new Order({
             type: args.orderInput.type,
-            orderCreator : '5c5a9b147f77a732fcd06856'
-        });
+            customer : '5c5aea3e3640172b8043c788',
+             items:items
+      });
         let createdOrder; 
         try{
         const result = await order
             .save()
-                createdOrder = {...result._doc,
-                    orderCreator: customer.bind(this, result._doc.orderCreator)
-                };
-                const creator = await Customer.findById('5c5a9b147f77a732fcd06856')
-                    if(!creator){
-                    throw new Error("Customer Doesnt exist!");
-                }
-                creator.createdOrders.push(order);
-                await creator.save();
-                return createdOrder;
+             createdOrder= {...result._doc,
+                createdAt: new Date(result._doc.createdAt).toString(),
+                updatedAt: new Date(result._doc.updatedAt).toString(),
+                customer: customer.bind(this, result._doc.customer)
+             };
+            
+            return createdOrder;
+            
               }catch(err) {
                  throw(err);
                 }

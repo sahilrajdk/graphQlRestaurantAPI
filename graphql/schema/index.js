@@ -21,7 +21,11 @@ module.exports = buildSchema(`
         type Order {
             _id: ID!
             type:String
-            orderCreator: Customer!
+            createdAt: String!
+            updatedAt: String!
+            items:[Product!]!
+            customer: Customer!
+             
          }
 
         input OrderInput {
@@ -53,6 +57,7 @@ module.exports = buildSchema(`
         type RootMutation {
             createProduct(productInput: ProductInput): Product
             createOrder(orderInput: OrderInput): Order
+            cancelOrder(orderId: ID!): Customer
             createCustomer(custInput: CustInput): Customer
         }
 

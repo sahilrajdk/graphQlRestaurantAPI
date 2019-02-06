@@ -8,11 +8,18 @@ const orderSchema = new Schema({
         type:String,
         required:true
     },
- 
-    orderCreator:{
+    
+    customer:{
         type:Schema.Types.ObjectId,
         ref:'Customer'
-    }
-})
+    },
+    items:[{
+        type:Schema.Types.ObjectId,
+        ref:'Product'
+    }],
+  
+},{timestamps:true}
+
+)
 
 module.exports = mongoose.model('Order',orderSchema);
