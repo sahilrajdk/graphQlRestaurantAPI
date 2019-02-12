@@ -48,10 +48,17 @@ module.exports = buildSchema(`
             phoneNum:Int
         }
 
+        type AuthData{
+            userId: ID!
+            token: String!
+            tokenExpiration: Int!
+        }
+
         type RootQuery {
             products: [Product!]!
             orders: [Order!]
             customers:[Customer!]
+            login(email: String!, password: String!): AuthData!
         }
 
         type RootMutation {

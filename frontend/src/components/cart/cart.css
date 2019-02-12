@@ -1,0 +1,15 @@
+.cart{
+    position: fixed;
+    top:50px;
+    right:10px;
+    width:20%;
+    height: 500px;
+    border: 3px dotted lightseagreen;
+ 
+}
+
+
+.cart h2{
+   text-align: center;
+   border-bottom: 2px dotted lightseagreen;
+}

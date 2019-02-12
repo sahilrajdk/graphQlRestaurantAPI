@@ -1,0 +1,41 @@
+.product_table{
+    border-collapse: collapse; 
+    width: 30%;
+   }
+ 
+.product_table tr{
+    border-bottom:1px solid rgb(77, 128, 112);
+    
+  }
+ 
+.product_table button{
+     background: rgb(23, 158, 129);
+     color:white;
+     border-style: none;
+     border-radius: 2px;
+     width:50px;
+     height:30px;
+   }
+
+.table_prod_name_desc{
+    width: 30%;
+    padding: 0.5rem 0rem;
+}
+
+.table_prod_price{
+    width: 10%;
+}
+.table_prod_addtocart{
+    width: 10%;
+}
+
+.table_prod_name_desc span{
+   
+    font-size: 1.2rem;
+}
+
+.table_prod_name_desc p{
+    font-size: 0.8rem;
+     color: rgb(26, 26, 26);
+     margin: .4rem 0;
+}
